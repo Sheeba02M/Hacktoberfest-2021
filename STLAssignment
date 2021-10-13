@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <unordered_set>
+#include <algorithm>
+
+using namespace std;
+
+int menu()
+{
+ int opt;
+ cout<<"\n-------------------------"<<endl;
+ cout<<"Data of --> * BillBoard Top R&B Artists * "<<endl;
+ cout<<"\n-------------------------"<<endl;
+ cout<<"1. Add an artist "<<endl;
+ cout<<"2. Delete an artist "<<endl;
+ cout<<"3. Artist repeated in charts "<<endl;
+ cout<<"4. Number of artists till now "<<endl;
+ cout<<"5. Find an Artist "<<endl;
+ cout<<"6. Show all artists "<<endl;
+ cout<<"7. Close charts "<<endl;
+ cout<<"Enter option : ";
+ cin>>opt;
+ cout<<"----------------------------"<<endl;
+ return opt;
+}
+int main()
+{
+ unordered_multiset<string> myfav;
+ unordered_multiset<string>::const_iterator got;
+ unordered_multiset<string>::iterator it;
+ int a,ch,cnt,item;
+ string s,k;
+ do
+ {
+ ch=menu();
+ switch(ch)
+ {
+ case 1:
+ cout<<"Enter Artist name(to add) : ";
+ cin>>s;
+ myfav.insert(s);
+ break;
+ case 2:
+ cout<<"Enter Artist name(to remove) : ";
+ cin>>s;
+ myfav.erase(s);
+ break;
+ case 3:
+ cout<<"Enter Artist name:";
+ cin>>s;
+ k = s;
+ a=myfav.size();
+ got = search_n(myfav.begin(),myfav.end(),2,k);
+ if (got != myfav.end())
+ cout<<k<<" artist is repeated in BBcharts ! \n"<<endl;
+ else
+ cout<<k<<" artist is not repeated in BBcharts ! \n"<<endl;
+ cnt = myfav.count(k);
+ cout << k << " appears " << cnt<< " times in the BBcharts\n"<<endl;
+ break;
+ case 4:
+ cout<<"Number of artists till now "<<myfav.size()<<endl;
+ break;
+ case 5:
+ cout<<"Enter Artist name(to find) :";
+ cin>>s;
+ if (myfav.find(s) != myfav.end())
+ cout << "Artist "<< s <<" is in the BBcharts !"<< endl;
+ else
+ cout <<"Artist "<< s <<" is not in the BBcharts !"<<endl;
+ break;
+ case 6:
+ cout<<"*** BillBoard Top R&B Artists ***"<<endl;
+ for (it = myfav.begin(); it != myfav.end(); ++it)
+ cout << " || " << *it <<endl;
+ break;
+ case 7:
+ cout<<"Closing....."<<endl;
+ exit(1);
+ break;
+ default:
+ cout<<"Invalid option"<<endl;
+ }
+ }while(1);
+ return 0;
+ }
